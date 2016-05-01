@@ -1,5 +1,5 @@
 {
-    "name": "niklauslee.staruml-generate-gettersetter",
+    "name": "niklauslee.staruml-gettersetter",
     "title": "Generate Getters and Setters",
     "description": "Generate getters and setters for attributes",
     "homepage": "https://github.com/niklauslee/staruml-gettersetter",
