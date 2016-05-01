@@ -4,7 +4,7 @@
     "description": "Generate getters and setters for attributes",
     "homepage": "https://github.com/niklauslee/staruml-gettersetter",
     "issues": "https://github.com/niklauslee/staruml-gettersetter/issues",
-    "keywords": ["getter", "setter", "refactor"],
+    "keywords": ["getter", "setter"],
     "version": "0.9.0",
     "author": {
         "name": "Minkyu Lee",

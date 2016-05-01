@@ -1,7 +1,7 @@
 StarUML 2 Extension for Generating Getters and Setters
 ======================================================
 
-This extension allows to generate getter and setter for selected attributes or selected classes.
+This extension allows to generate getters and setters for selected attributes or selected classes.
 
 ![Screenshot1](https://github.com/niklauslee/staruml-gettersetter/blob/master/captures/screenshot.png?raw=true)
 
