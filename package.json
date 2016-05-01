@@ -1,7 +1,7 @@
 {
     "name": "niklauslee.staruml-gettersetter",
     "title": "Generate Getters and Setters",
-    "description": "Generate getters and setters for attributes",
+    "description": "Generate getters and setters for selected attributes or selected classes",
     "homepage": "https://github.com/niklauslee/staruml-gettersetter",
     "issues": "https://github.com/niklauslee/staruml-gettersetter/issues",
     "keywords": ["getter", "setter"],
