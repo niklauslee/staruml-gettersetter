@@ -63,12 +63,14 @@ define(function (require, exports, module) {
 
         // Getter
         var _getter = new type.UMLOperation();
-        _getter.name = "get" + firstUpperCase(attr.name);
+        _getter.name = getGetterName(attr.name);
         _getter.visibility = UML.VK_PUBLIC;
         _getter._parent = _class;
         var _param1 = new type.UMLParameter();
         _param1.direction = UML.DK_RETURN;
+        _param1.name = generateParameterName(attr.name);
         _param1.type = attr.type;
+        _param1.multiplicity = attr.multiplicity;
         _param1._parent = _getter;
         _getter.parameters.add(_param1);
         OperationBuilder.insert(_getter);
@@ -76,12 +78,13 @@ define(function (require, exports, module) {
 
         // Setter
         var _setter = new type.UMLOperation();
-        _setter.name = "set" + firstUpperCase(attr.name);
+        _setter.name = getSetterName(attr.name);
         _setter.visibility = UML.VK_PUBLIC;
         _setter._parent = _class;
         var _param2 = new type.UMLParameter();
         _param2.direction = UML.DK_IN;
-        _param2.name = "value";
+        _param2.name = generateParameterName(attr.name);
+        _param2.multiplicity = attr.multiplicity;
         _param2.type = attr.type;
         _param2._parent = _setter;
         _setter.parameters.add(_param2);
@@ -91,6 +94,18 @@ define(function (require, exports, module) {
         OperationBuilder.end();
         var cmd = OperationBuilder.getOperation();
         Repository.doOperation(cmd);        
+    }
+
+    function getSetterName(attributeName) {
+        return "set" + firstUpperCase(attributeName);
+    }
+
+    function getGetterName(attributeName) {
+        return "get" + firstUpperCase(attributeName);
+    }
+
+    function generateParameterName(attributeName) {
+        return attributeName;
     }
     
     /**
