@@ -58,17 +58,42 @@ define(function (require, exports, module) {
      */
     function generateGetterSetter(attr) {
         var _class = attr._parent;
-        
-        OperationBuilder.begin("generate getter & setter");        
+        var _operations = _class.operations;
+        var _deleteOperations = [];
+
+        OperationBuilder.begin("delete existing getter and setter");
+
+        for(var i=0; i<_operations.length; i++) {
+            if (_operations[i].name === getGetterName(attr.name) || _operations[i].name === getSetterName(attr.name)) {
+                OperationBuilder.remove(_operations[i]);
+                OperationBuilder.fieldRemove(_class, "operations", _operations[i]);
+                _deleteOperations.push(i);
+            }
+        }
+
+        OperationBuilder.end();
+        var deleteCmd = OperationBuilder.getOperation();
+        Repository.doOperation(deleteCmd);
+
+        var indexCorrection = 0;
+        for(var j=0; j<_deleteOperations.length; j++) {
+            _class.operations.splice((_deleteOperations[j]-indexCorrection), 1);
+            indexCorrection++;
+        }
+
+
+        OperationBuilder.begin("generate getter & setter");
 
         // Getter
         var _getter = new type.UMLOperation();
-        _getter.name = "get" + firstUpperCase(attr.name);
+        _getter.name = getGetterName(attr.name);
         _getter.visibility = UML.VK_PUBLIC;
         _getter._parent = _class;
         var _param1 = new type.UMLParameter();
         _param1.direction = UML.DK_RETURN;
+        _param1.name = generateParameterName(attr.name);
         _param1.type = attr.type;
+        _param1.multiplicity = attr.multiplicity;
         _param1._parent = _getter;
         _getter.parameters.add(_param1);
         OperationBuilder.insert(_getter);
@@ -76,12 +101,13 @@ define(function (require, exports, module) {
 
         // Setter
         var _setter = new type.UMLOperation();
-        _setter.name = "set" + firstUpperCase(attr.name);
+        _setter.name = getSetterName(attr.name);
         _setter.visibility = UML.VK_PUBLIC;
         _setter._parent = _class;
         var _param2 = new type.UMLParameter();
         _param2.direction = UML.DK_IN;
-        _param2.name = "value";
+        _param2.name = generateParameterName(attr.name);
+        _param2.multiplicity = attr.multiplicity;
         _param2.type = attr.type;
         _param2._parent = _setter;
         _setter.parameters.add(_param2);
@@ -91,6 +117,18 @@ define(function (require, exports, module) {
         OperationBuilder.end();
         var cmd = OperationBuilder.getOperation();
         Repository.doOperation(cmd);        
+    }
+
+    function getSetterName(attributeName) {
+        return "set" + firstUpperCase(attributeName);
+    }
+
+    function getGetterName(attributeName) {
+        return "get" + firstUpperCase(attributeName);
+    }
+
+    function generateParameterName(attributeName) {
+        return attributeName;
     }
     
     /**
