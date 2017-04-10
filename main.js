@@ -58,8 +58,31 @@ define(function (require, exports, module) {
      */
     function generateGetterSetter(attr) {
         var _class = attr._parent;
-        
-        OperationBuilder.begin("generate getter & setter");        
+        var _operations = _class.operations;
+        var _deleteOperations = [];
+
+        OperationBuilder.begin("delete existing getter and setter");
+
+        for(var i=0; i<_operations.length; i++) {
+            if (_operations[i].name === getGetterName(attr.name) || _operations[i].name === getSetterName(attr.name)) {
+                OperationBuilder.remove(_operations[i]);
+                OperationBuilder.fieldRemove(_class, "operations", _operations[i]);
+                _deleteOperations.push(i);
+            }
+        }
+
+        OperationBuilder.end();
+        var deleteCmd = OperationBuilder.getOperation();
+        Repository.doOperation(deleteCmd);
+
+        var indexCorrection = 0;
+        for(var j=0; j<_deleteOperations.length; j++) {
+            _class.operations.splice((_deleteOperations[j]-indexCorrection), 1);
+            indexCorrection++;
+        }
+
+
+        OperationBuilder.begin("generate getter & setter");
 
         // Getter
         var _getter = new type.UMLOperation();
