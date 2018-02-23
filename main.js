@@ -27,14 +27,14 @@
 define(function (require, exports, module) {
     "use strict";
 
-    var AppInit          = app.getModule("utils/AppInit"),
-        Commands         = app.getModule("command/Commands"),
-        CommandManager   = app.getModule("command/CommandManager"),
-        MenuManager      = app.getModule("menu/MenuManager"),
-        Repository       = app.getModule("core/Repository"),
+    var AppInit = app.getModule("utils/AppInit"),
+        Commands = app.getModule("command/Commands"),
+        CommandManager = app.getModule("command/CommandManager"),
+        MenuManager = app.getModule("menu/MenuManager"),
+        Repository = app.getModule("core/Repository"),
         OperationBuilder = app.getModule("core/OperationBuilder"),
         SelectionManager = app.getModule("engine/SelectionManager"),
-        UML              = app.getModule("uml/UML");
+        UML = app.getModule("uml/UML");
 
     /**
      * Commands IDs
@@ -50,7 +50,7 @@ define(function (require, exports, module) {
         }
         return "";
     }
-    
+
     /**
      * Generate a getter and a setter for an attribute
      *
@@ -58,8 +58,8 @@ define(function (require, exports, module) {
      */
     function generateGetterSetter(attr) {
         var _class = attr._parent;
-        
-        OperationBuilder.begin("generate getter & setter");        
+
+        OperationBuilder.begin("generate getter & setter");
 
         // Getter
         var _getter = new type.UMLOperation();
@@ -74,25 +74,25 @@ define(function (require, exports, module) {
         OperationBuilder.insert(_getter);
         OperationBuilder.fieldInsert(_class, "operations", _getter);
 
-        // Setter
-        var _setter = new type.UMLOperation();
-        _setter.name = "set" + firstUpperCase(attr.name);
-        _setter.visibility = UML.VK_PUBLIC;
-        _setter._parent = _class;
-        var _param2 = new type.UMLParameter();
-        _param2.direction = UML.DK_IN;
-        _param2.name = "value";
-        _param2.type = attr.type;
-        _param2._parent = _setter;
-        _setter.parameters.add(_param2);
-        OperationBuilder.insert(_setter);
-        OperationBuilder.fieldInsert(_class, "operations", _setter);
-        
+        if (!attr.isReadOnly) {
+            var _setter = new type.UMLOperation();
+            _setter.name = "set" + firstUpperCase(attr.name);
+            _setter.visibility = UML.VK_PUBLIC;
+            _setter._parent = _class;
+            var _param2 = new type.UMLParameter();
+            _param2.direction = UML.DK_IN;
+            _param2.name = "value";
+            _param2.type = attr.type;
+            _param2._parent = _setter;
+            _setter.parameters.add(_param2);
+            OperationBuilder.insert(_setter);
+            OperationBuilder.fieldInsert(_class, "operations", _setter);
+        }
         OperationBuilder.end();
         var cmd = OperationBuilder.getOperation();
-        Repository.doOperation(cmd);        
+        Repository.doOperation(cmd);
     }
-    
+
     /**
      * Command Handler for Generating Getters and Setters
      *
@@ -103,7 +103,7 @@ define(function (require, exports, module) {
      */
     function _handleGenerate(base, path, options) {
         var result = new $.Deferred();
-            
+
         var selected = SelectionManager.getSelectedModels();
         selected.forEach(function (e) {
             if (e instanceof type.UMLAttribute) {
