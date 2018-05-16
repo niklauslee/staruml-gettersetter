@@ -1,5 +1,5 @@
-StarUML 2 Extension for Generating Getters and Setters
-======================================================
+StarUML Extension for Generating Getters and Setters
+====================================================
 
 This extension allows to generate getters and setters for selected attributes or selected classes.
 
@@ -11,7 +11,7 @@ Open Extension Manager *(Tools > Extension Manager)* and select *Registry* Tab a
 
 ## Usage
 
-To generate getters and setters, select attributes or classes first and then select **Tools > Generate Getters and Setters (Alt+Ctrl+G)**.
+To generate getters and setters, select attributes or classes first and then select **Tools > Generate Getters and Setters (Ctrl+Alt+G)**.
 
 ---
 

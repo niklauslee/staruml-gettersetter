@@ -1,0 +1,10 @@
+{
+  "menu": [
+    {
+      "id": "tools",
+      "submenu": [
+        { "label": "Generate Getters & Setters", "id": "tools.gettersetter", "command": "gettersetter:generate" }
+      ]
+    }
+  ]
+}
