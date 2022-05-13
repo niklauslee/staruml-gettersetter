@@ -3,7 +3,18 @@
     {
       "id": "tools",
       "submenu": [
-        { "label": "Generate Getters & Setters", "id": "tools.gettersetter", "command": "gettersetter:generate" }
+        {
+          "label": "Generate Getters & Setters",
+          "id": "tools.gettersetter",
+          "submenu": [
+            { "label": "Generate Getters & Setters Camel Case", "command": "gettersetter:generate_camel_case" },
+            { "label": "Generate Getters & Setters Snake Case", "command": "gettersetter:generate_snake_case" },
+            { "label": "Generate Empty Constructor JavaScript", "command": "gettersetter:generate_empty_constructor_js" },
+            { "label": "Generate Full Constructor JavaScript", "command": "gettersetter:generate_full_constructor_js" },
+            { "label": "Generate Empty Constructor Java", "command": "gettersetter:generate_empty_constructor_java" },
+            { "label": "Generate Full Constructor Java", "command": "gettersetter:generate_full_constructor_java" }
+          ]
+        }
       ]
     }
   ]
