@@ -1,3 +1,8 @@
 {
-  "cmdctrl-alt-g": "gettersetter:generate"
+  "cmdctrl-alt-g": "gettersetter:generate_snake_case",
+  "cmdctrl-alt-h": "gettersetter:generate_camel_case",
+  "cmdctrl-alt-u": "gettersetter:generate_empty_constructor_js",
+  "cmdctrl-alt-i": "gettersetter:generate_full_constructor_js",
+  "cmdctrl-alt-o": "gettersetter:generate_empty_constructor_java",
+  "cmdctrl-alt-p": "gettersetter:generate_full_constructor_java"
 }
