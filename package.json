@@ -4,8 +4,11 @@
   "description": "Generate getters and setters for selected attributes or selected classes",
   "homepage": "https://github.com/niklauslee/staruml-gettersetter",
   "issues": "https://github.com/niklauslee/staruml-gettersetter/issues",
-  "keywords": ["getter", "setter"],
-  "version": "0.9.1",
+  "keywords": [
+    "getter",
+    "setter"
+  ],
+  "version": "0.10.0",
   "author": {
     "name": "Minkyu Lee",
     "email": "niklaus.lee@gmail.com",
@@ -13,6 +16,6 @@
   },
   "license": "MIT",
   "engines": {
-    "staruml": "^3.0.0"
+    "staruml": ">=8.0.0"
   }
 }
